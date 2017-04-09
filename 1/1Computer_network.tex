@@ -4,8 +4,6 @@
 \usepackage{tikz}
 \usepackage{amsmath}
 
-\newcommand*{\num}{pi}
-
 \tikzset{elegant/.style={smooth,thick,samples=50,cyan}}
 \tikzset{eaxis/.style={->,>=stealth}}
 
@@ -269,9 +267,9 @@
 			\begin{tikzpicture}
 				% draw the axis
 				\draw[eaxis] (-0.5,0) -- (10,0) node[below] {$\frac{L}{R}$};
-				\draw[eaxis] (0,-0.5) -- (0,10) node[above] {$Delay$};
+				\draw[eaxis] (0,-0.5) -- (0,9) node[above] {$Delay$};
 				% draw the function (piecewise)
-				\draw[elegant,domain=0:8.2] plot(\x,{\x/(9-\x) + 0.2});
+				\draw[elegant,domain=0:7.2] plot(\x,{\x/(8-\x) + 0.2});
 			\end{tikzpicture}
 		\end{center}
 	\end{enumerate}
