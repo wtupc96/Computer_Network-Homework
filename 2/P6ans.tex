@@ -1,0 +1,18 @@
+\paragraph{A.}
+\subparagraph{a. }
+An HTTP/1.1 client MAY expect a connection to remain open, but would
+decide to keep it open based on \textbf{whether the response from a server contains a Connection header with the connection-token close}. In case the client does not want to maintain a connection for more than that request, it SHOULD send a Connection header including the
+connection-token close.
+
+\textbf{If \textit{either the client or the server} sends the close token in the
+Connection header, that request becomes the last one for the
+connection.}
+
+\subparagraph{b.}
+HTTP does not provide any encryption services.
+
+\subparagraph{c.}
+Yes, a client can open as many connections as it wants to.
+
+\subparagraph{d.}
+Yes, it is possible that one side that client or server closes a connection while the other is transmitting data. This is because the client and server knows each other state after they have received data from each other. If a connection is idle by any side , it could be closed even though a message is transmitted from the opposite side and it would result in closing.

@@ -1,5 +1,6 @@
 \documentclass[]{article}
 \usepackage{xeCJK}
+\usepackage{subfiles}
 %opening
 \title{Computer Networking: A Top-Down Approach \\ Homework 2}
 \author{Class 42 \\ 欧阳鹏程 \\ 2141601030 \\ Copyright Notice: BY-NC-SA}
@@ -12,6 +13,7 @@
 \begin{enumerate}
 	\item Explain precisely following abbreviations:
 	\subitem URL, HTML, RTT, MIME, TFTP, NFS, SNMP, JPEG, MPEG
+	\subfile{1ans.tex}
 	
 	\item Specify following system Organization:
 	\subitem Email system, DNS system
@@ -19,30 +21,36 @@
 
 \section{Problems on textbooks}
 \begin{enumerate}
-	\item[R1.] P1. True or false?
+	\item[P1.] True or false?
+	
 	a. A user requests a Web page that consists of some text and three images.
 	For this page, the client will send one request message and receive four
 	response messages.
+	
 	b. Two distinct Web pages (for example, www.mit.edu/research.html
 	and www.mit.edu/students.html) can be sent over the same persistent connection.
-	c. With nonpersistent connections between browser and origin server, it is possible for a single TCP segment to carry two distinct HTTP request messages.
-	d. The Date: header in the HTTP response message indicates when the
-	object in the response was last modified.
 	
-	\item[R6.] P6. Obtain the HTTP/1.1 specification (RFC 2616). Answer the following questions:
-	a. Explain the mechanism used for signaling between the client and server
-	to indicate that a persistent connection is being closed. Can the client, the
-	server, or both signal the close of a connection?
+	c. With nonpersistent connections between browser and origin server, it is possible for a single TCP segment to carry two distinct HTTP request messages.
+	
+	d. The Date: header in the HTTP response message indicates when the	object in the response was last modified.
+	\subfile{P1ans.tex}
+	
+	\item[P6.] Obtain the HTTP/1.1 specification (RFC 2616). Answer the following questions:
+	
+	a. Explain the mechanism used for signaling between the client and server to indicate that a persistent connection is being closed. Can the client, the	server, or both signal the close of a connection?
+	
 	b. What encryption services are provided by HTTP?
-	c. Can a client open three or more simultaneous connections with a given
-	server?
-	d. Either a server or a client may close a transport connection between them
-	if either one detects the connection has been idle for some time. Is it possible that one side starts closing a connection while the other side is transmitting data via this connection? Explain.
+	
+	c. Can a client open three or more simultaneous connections with a given	server?
+	
+	d. Either a server or a client may close a transport connection between them if either one detects the connection has been idle for some time. Is it possible that one side starts closing a connection while the other side is transmitting data via this connection? Explain.
+	\subfile{P6ans.tex}
 \end{enumerate}
 
 \section{Discussion}
 \begin{enumerate}
 	\item[D6.] What is the Apache Web server? How much does it cost? What functionality does it currently have?
+	\subfile{D6ans.tex}
 \end{enumerate}
 
 \end{document}
