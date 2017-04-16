@@ -10,6 +10,7 @@ import java.util.Date;
 
 import static frontEnd.ChattingRoom.getjChattingRoomTextField;
 import static frontEnd.TopMenu.getChat;
+import static frontEnd.TopMenu.getTextMessageSender;
 
 /**
  * Created by wtupc96 on 2017/4/10.
@@ -25,18 +26,6 @@ class MultiFuncMenu extends JPanel {
     private static final JScrollPane jScrollPane = new JScrollPane(jMessageTextArea);
 
     private static Chat chat;
-
-    public static JTextArea getjMessageTextArea() {
-        return jMessageTextArea;
-    }
-
-    public static JButton getjTalkButton() {
-        return jTalkButton;
-    }
-
-    public static JButton getjVideoButton() {
-        return jVideoButton;
-    }
 
     static {
         jScrollPane.setHorizontalScrollBarPolicy(
@@ -83,7 +72,9 @@ class MultiFuncMenu extends JPanel {
         });
 
         jSendButton.addActionListener(e -> {
-            getjChattingRoomTextField().append(new Date().toString() + '\n' + jMessageTextArea.getText() + "\n\n");
+            String message = new Date().toString() + '\n' + jMessageTextArea.getText() + "\n\n";
+            getjChattingRoomTextField().append(message);
+            getTextMessageSender().sendMessage(message);
             jMessageTextArea.setText("");
         });
 
@@ -96,6 +87,18 @@ class MultiFuncMenu extends JPanel {
         setLayout(new BorderLayout(2, 2));
         add(jScrollPane, BorderLayout.CENTER);
         add(jBtnPanel, BorderLayout.SOUTH);
+    }
+
+    public static JTextArea getjMessageTextArea() {
+        return jMessageTextArea;
+    }
+
+    public static JButton getjTalkButton() {
+        return jTalkButton;
+    }
+
+    public static JButton getjVideoButton() {
+        return jVideoButton;
     }
 
     private static void setJSendButtonState() {

@@ -1,12 +1,14 @@
 package frontEnd;
 
 import backEnd.Chat;
+import backEnd.TextMessageReceiver;
+import backEnd.TextMessageSender;
 
 import javax.swing.*;
+import java.util.Date;
 
-import static frontEnd.MultiFuncMenu.getjMessageTextArea;
-import static frontEnd.MultiFuncMenu.getjTalkButton;
-import static frontEnd.MultiFuncMenu.getjVideoButton;
+import static frontEnd.ChattingRoom.getjChattingRoomTextField;
+import static frontEnd.MultiFuncMenu.*;
 
 /**
  * Created by wtupc96 on 2017/4/10.
@@ -14,13 +16,9 @@ import static frontEnd.MultiFuncMenu.getjVideoButton;
 public class TopMenu extends JMenuBar {
     private static final JMenuItem jBreakMenuItem = new JMenuItem("连接");
     private static final JMenuItem jQuitMenuItem = new JMenuItem("退出");
-
-    public static Chat getChat() {
-        return chat;
-    }
-
     private static Chat chat;
-
+    private static TextMessageSender textMessageSender;
+    private static TextMessageReceiver textMessageReceiver;
     private static String input = "";
 
     static {
@@ -37,7 +35,19 @@ public class TopMenu extends JMenuBar {
                 if (input != null &&
                         input.matches("^(\\d{1,3}\\.){3}\\d{1,3}:\\d{1,10}$")) {
                     chat = new Chat(input);
+//                    textMessageReceiver = new TextMessageReceiver();
 
+                    new Thread(new Runnable() {
+                        @Override
+                        public void run() {
+                            // TODO Auto-generated method stub
+                            while (true) {
+                                getjChattingRoomTextField().append(new Date().toString() + "\n" + textMessageReceiver.receiveMessage() + "\n\n");
+                            }
+                        }
+                    }).start();
+
+                    textMessageSender = new TextMessageSender(input);
                     getjTalkButton().setEnabled(true);
                     getjVideoButton().setEnabled(true);
                     getjMessageTextArea().setEnabled(true);
@@ -65,5 +75,17 @@ public class TopMenu extends JMenuBar {
     TopMenu() {
         this.add(jBreakMenuItem);
         this.add(jQuitMenuItem);
+    }
+
+    public static Chat getChat() {
+        return chat;
+    }
+
+    public static TextMessageSender getTextMessageSender() {
+        return textMessageSender;
+    }
+
+    public static TextMessageReceiver getTextMessageReceiver() {
+        return textMessageReceiver;
     }
 }
