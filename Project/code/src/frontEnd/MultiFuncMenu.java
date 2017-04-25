@@ -6,7 +6,6 @@ import javax.swing.*;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import java.awt.*;
-import java.util.Date;
 
 import static frontEnd.ChattingRoom.getjChattingRoomTextField;
 import static frontEnd.TopMenu.getChat;
@@ -72,7 +71,8 @@ class MultiFuncMenu extends JPanel {
         });
 
         jSendButton.addActionListener(e -> {
-            String message = new Date().toString() + '\n' + jMessageTextArea.getText() + "\n\n";
+            String message = jMessageTextArea.getText();
+            System.out.println(message);
             getjChattingRoomTextField().append(message);
             getTextMessageSender().sendMessage(message);
             jMessageTextArea.setText("");
