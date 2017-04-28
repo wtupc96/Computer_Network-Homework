@@ -5,9 +5,9 @@ import backEnd.TextMessageReceiver;
 import backEnd.TextMessageSender;
 
 import javax.swing.*;
+import java.io.IOException;
 import java.util.Date;
 
-import static frontEnd.ChattingRoom.getjChattingRoomTextField;
 import static frontEnd.MultiFuncMenu.*;
 
 /**
@@ -20,6 +20,7 @@ public class TopMenu extends JMenuBar {
     private static TextMessageSender textMessageSender;
     private static TextMessageReceiver textMessageReceiver;
     private static String input = "";
+    private static boolean flag = false;
 
     static {
         jQuitMenuItem.addActionListener(e -> {
@@ -35,19 +36,33 @@ public class TopMenu extends JMenuBar {
                 if (input != null &&
                         input.matches("^(\\d{1,3}\\.){3}\\d{1,3}:\\d{1,10}$")) {
                     chat = new Chat(input);
-//                    textMessageReceiver = new TextMessageReceiver();
 
-                    new Thread(new Runnable() {
-                        @Override
-                        public void run() {
-                            // TODO Auto-generated method stub
-                            while (true) {
-                                getjChattingRoomTextField().append(new Date().toString() + "\n" + textMessageReceiver.receiveMessage() + "\n\n");
+                    try {
+                        textMessageSender = new TextMessageSender(input);
+                        flag = true;
+
+                        new Thread(new Runnable() {
+                            @Override
+                            public void run() {
+                                while (true) {
+                                    ChattingRoom.getjChattingRoomTextField().append(new Date().toString() + "\n" + textMessageSender.receiveMessage() + "\n\n");
+                                }
                             }
-                        }
-                    }).start();
+                        }).start();
+                    } catch (IOException e1) {
+                        System.out.println("hh");
+                        new Thread(new Runnable() {
+                            @Override
+                            public void run() {
+                                textMessageReceiver = new TextMessageReceiver();
+                                flag = false;
+                                while (true) {
+                                    ChattingRoom.getjChattingRoomTextField().append(new Date().toString() + "\n" + textMessageReceiver.receiveMessage() + "\n\n");
+                                }
+                            }
+                        }).start();
+                    }
 
-                    textMessageSender = new TextMessageSender(input);
                     getjTalkButton().setEnabled(true);
                     getjVideoButton().setEnabled(true);
                     getjMessageTextArea().setEnabled(true);
@@ -75,6 +90,10 @@ public class TopMenu extends JMenuBar {
     TopMenu() {
         this.add(jBreakMenuItem);
         this.add(jQuitMenuItem);
+    }
+
+    public static boolean getFlag() {
+        return flag;
     }
 
     public static Chat getChat() {

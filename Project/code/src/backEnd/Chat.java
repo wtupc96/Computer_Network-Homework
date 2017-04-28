@@ -6,9 +6,9 @@ public class Chat {
 
     public Chat(String targetPeer) {
         int indexOfPort = targetPeer.indexOf(':');
-        soundSender = new SoundSender("localhost", 10001, 1024);
+        soundSender = new SoundSender("localhost", 9999, 1024);
         soundReceiver = new SoundReceiver(targetPeer.substring(0, indexOfPort),
-                Integer.valueOf(targetPeer.substring(indexOfPort + 1)), 1024);
+                10000, 1024);
     }
 
     public void soundStart() {

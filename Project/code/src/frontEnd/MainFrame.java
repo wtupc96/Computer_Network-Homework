@@ -20,7 +20,7 @@ class MainFrame extends JFrame implements Runnable {
         this.setLayout(new BorderLayout(5, 5));
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
         this.setVisible(true);
-        this.setTitle("Computer Network");
+        this.setTitle("Computer Network: 10005");
         this.setLocationRelativeTo(null);
         this.setSize(300, 600);
         this.setResizable(false);

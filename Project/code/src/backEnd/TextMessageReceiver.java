@@ -45,4 +45,12 @@ public class TextMessageReceiver {
         }
     }
 
+    public void sendMessage(String message) {
+        try {
+            bufferedWriter.write(message);
+            bufferedWriter.flush();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 }

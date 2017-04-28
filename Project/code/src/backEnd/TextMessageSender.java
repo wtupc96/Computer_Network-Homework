@@ -1,6 +1,9 @@
 package backEnd;
 
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.PrintWriter;
 import java.net.Socket;
 
 /**
@@ -9,35 +12,37 @@ import java.net.Socket;
 public class TextMessageSender {
     private static Socket sendSocket;
     private static BufferedReader bufferedReader;
-    private static BufferedWriter bufferedWriter;
 
-    public TextMessageSender(String host) {
-        try {
-            int index = host.indexOf(':');
-            sendSocket = new Socket(host.substring(0, index), Integer.valueOf(host.substring(index + 1)));
-            bufferedReader = new BufferedReader(new InputStreamReader(sendSocket.getInputStream()));
-            bufferedWriter = new BufferedWriter(new OutputStreamWriter(sendSocket.getOutputStream()));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+    private static PrintWriter write;
+
+    public TextMessageSender(String host) throws IOException {
+        int index = host.indexOf(':');
+        sendSocket = new Socket(host.substring(0, index), Integer.valueOf(host.substring(index + 1)));
+        bufferedReader = new BufferedReader(new InputStreamReader(sendSocket.getInputStream()));
+        write = new PrintWriter(sendSocket.getOutputStream());
     }
 
     public void sendMessage(String message) {
-        try {
-            bufferedWriter.write(message);
-            bufferedWriter.flush();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        write.println(message);
+        write.flush();
     }
 
     public void releaseResources() {
         try {
             bufferedReader.close();
-            bufferedWriter.close();
+            write.close();
             sendSocket.close();
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    public String receiveMessage() {
+        try {
+            return bufferedReader.readLine();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 }

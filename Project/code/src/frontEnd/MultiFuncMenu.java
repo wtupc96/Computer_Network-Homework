@@ -6,10 +6,10 @@ import javax.swing.*;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import java.awt.*;
+import java.util.Date;
 
 import static frontEnd.ChattingRoom.getjChattingRoomTextField;
-import static frontEnd.TopMenu.getChat;
-import static frontEnd.TopMenu.getTextMessageSender;
+import static frontEnd.TopMenu.*;
 
 /**
  * Created by wtupc96 on 2017/4/10.
@@ -73,8 +73,15 @@ class MultiFuncMenu extends JPanel {
         jSendButton.addActionListener(e -> {
             String message = jMessageTextArea.getText();
             System.out.println(message);
-            getjChattingRoomTextField().append(message);
-            getTextMessageSender().sendMessage(message);
+            getjChattingRoomTextField().append(new Date().toString() + "\n" + message + "\n\n");
+
+            System.out.println(getFlag());
+
+            if (TopMenu.getFlag()) {
+                getTextMessageSender().sendMessage(message);
+            } else {
+                getTextMessageReceiver().sendMessage(message);
+            }
             jMessageTextArea.setText("");
         });
 
