@@ -21,6 +21,8 @@ public class TopMenu extends JMenuBar {
     private static TextMessageReceiver textMessageReceiver;
     private static String input = "";
     private static boolean flag = false;
+    private static Thread sendThread;
+    private static Thread receiveThread;
 
     static {
         jQuitMenuItem.addActionListener(e -> {
@@ -41,26 +43,43 @@ public class TopMenu extends JMenuBar {
                         textMessageSender = new TextMessageSender(input);
                         flag = true;
 
-                        new Thread(new Runnable() {
+                        sendThread = new Thread(new Runnable() {
+                            String message;
+
                             @Override
                             public void run() {
                                 while (true) {
-                                    ChattingRoom.getjChattingRoomTextField().append(new Date().toString() + "\n" + textMessageSender.receiveMessage() + "\n\n");
+                                    if ((message = textMessageSender.receiveMessage()) == null) {
+                                        break;
+                                    }
+                                    ChattingRoom.getjChattingRoomTextField().append(new Date().toString() + "   " + input + "说：\n" + message + "\n\n");
                                 }
+                                jBreakMenuItem.doClick();
+                                sendThread.interrupt();
                             }
-                        }).start();
+                        });
+
+                        sendThread.start();
                     } catch (IOException e1) {
-                        System.out.println("hh");
-                        new Thread(new Runnable() {
+                        receiveThread = new Thread(new Runnable() {
+                            String message;
+
                             @Override
                             public void run() {
                                 textMessageReceiver = new TextMessageReceiver();
                                 flag = false;
                                 while (true) {
-                                    ChattingRoom.getjChattingRoomTextField().append(new Date().toString() + "\n" + textMessageReceiver.receiveMessage() + "\n\n");
+                                    if ((message = textMessageReceiver.receiveMessage()) == null) {
+                                        break;
+                                    }
+                                    ChattingRoom.getjChattingRoomTextField().append(new Date().toString() + "   " + input + "说：\n" + message + "\n\n");
                                 }
+                                jBreakMenuItem.doClick();
+                                receiveThread.interrupt();
                             }
-                        }).start();
+                        });
+
+                        receiveThread.start();
                     }
 
                     getjTalkButton().setEnabled(true);

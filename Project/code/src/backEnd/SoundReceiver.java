@@ -1,5 +1,7 @@
 package backEnd;
 
+import com.sun.org.apache.xerces.internal.impl.dv.util.HexBin;
+
 import javax.sound.sampled.*;
 
 class SoundReceiver extends UDPReceiver implements Runnable {
@@ -26,6 +28,7 @@ class SoundReceiver extends UDPReceiver implements Runnable {
         while (isStart && !thread.isInterrupted()) {
             byte[] data = super.receive();
             line.write(data, 0, data.length);
+            System.out.println(HexBin.encode(data));
         }
     }
 

@@ -73,7 +73,7 @@ class MultiFuncMenu extends JPanel {
         jSendButton.addActionListener(e -> {
             String message = jMessageTextArea.getText();
             System.out.println(message);
-            getjChattingRoomTextField().append(new Date().toString() + "\n" + message + "\n\n");
+            getjChattingRoomTextField().append(new Date().toString() + "  我：\n" + message + "\n\n");
 
             System.out.println(getFlag());
 

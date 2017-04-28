@@ -15,10 +15,11 @@ class UDPSender {
 
     UDPSender(String groupAddress, int port) {
         this.port = port;
+        System.out.println(port);
         try {
 //            s = new MulticastSocket();
             s = new DatagramSocket();
-            group = InetAddress.getByName(groupAddress);//groupһ��Ҫ�Ǹ��鲥�飡��231.0.0.1
+            group = InetAddress.getByName(groupAddress);
         } catch (IOException e) {
             e.printStackTrace();
         }
