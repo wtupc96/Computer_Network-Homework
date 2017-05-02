@@ -9,8 +9,8 @@ class SoundSender extends UDPSender implements Runnable {
     private Thread thread;
     private boolean isStart;
 
-    public SoundSender(String groupAddress, int port, int bufferLength) {
-        super(groupAddress, port);
+    public SoundSender(String groupAddress) {
+        super(groupAddress, 9999);
         AudioFormat format = new AudioFormat(8000, 16, 2, true, true);
         DataLine.Info info = new DataLine.Info(TargetDataLine.class, format);
         try {
@@ -19,7 +19,7 @@ class SoundSender extends UDPSender implements Runnable {
         } catch (LineUnavailableException e) {
             e.printStackTrace();
         }
-        this.bufferLength = bufferLength;
+        this.bufferLength = 1024;
         isStart = false;
     }
 

@@ -1,0 +1,90 @@
+\paragraph{A.}
+A(Receiver)'s FSM:
+\begin{center}
+	\psscalebox{0.5 0.5} % Change this value to rescale the drawing.
+	{
+		\begin{pspicture}(0,-6.575)(22.0,6.575)
+		\rput[bl](6.0,3.025){Wait for request0}
+		\rput[bl](6.4,2.625){from above}
+		\psellipse[linecolor=black, linewidth=0.02, dimen=outer](7.4,3.025)(1.8,0.8)
+		\rput[bl](13.6,3.025){Wait for D0}
+		\psellipse[linecolor=black, linewidth=0.02, dimen=outer](14.6,3.225)(1.4,0.6)
+		\rput[bl](6.4,-3.375){Wait for D1}
+		\psellipse[linecolor=black, linewidth=0.02, dimen=outer](7.4,-3.175)(1.4,0.6)
+		\rput[bl](13.2,-2.975){Wait for request1}
+		\rput[bl](13.6,-3.375){from above}
+		\psellipse[linecolor=black, linewidth=0.02, dimen=outer](14.6,-2.975)(1.8,0.8)
+		\psbezier[linecolor=black, linewidth=0.02, arrowsize=0.05291667cm 2.0,arrowlength=1.4,arrowinset=0.0]{->}(7.2,3.825)(7.2,4.625)(9.6,4.625)(11.2,4.625)(12.8,4.625)(14.4,4.625)(14.4,3.825)
+		\psbezier[linecolor=black, linewidth=0.02, arrowsize=0.05291667cm 2.0,arrowlength=1.4,arrowinset=0.0]{->}(16.0,3.025)(16.8,3.025)(17.6,2.225)(17.6,0.225)(17.6,-1.775)(17.2,-2.975)(16.4,-2.975)
+		\psbezier[linecolor=black, linewidth=0.02, arrowsize=0.05291667cm 2.0,arrowlength=1.4,arrowinset=0.0]{->}(14.8,-3.775)(14.8,-4.575)(13.28421,-4.575)(11.010527,-4.575)(8.736842,-4.575)(7.6,-4.575)(7.6,-3.775)
+		\psbezier[linecolor=black, linewidth=0.02, arrowsize=0.05291667cm 2.0,arrowlength=1.4,arrowinset=0.0]{->}(6.0,-2.975)(5.2,-2.975)(4.4,-1.775)(4.4,0.225)(4.4,2.225)(4.8,3.025)(5.6,3.025)
+		\rput[bl](9.2,6.225){rdt\_send(R0)}
+		\rput[bl](9.24,5.825){sndpkt=make\_pkt(R0)}
+		\rput[bl](9.2,5.425){udt\_send(sndpkt)}
+		\psline[linecolor=black, linewidth=0.02](8.8,6.225)(13.2,6.225)
+		\rput[bl](9.2,5.025){start\_timer}
+		\psbezier[linecolor=black, linewidth=0.02, arrowsize=0.05291667cm 2.0,arrowlength=1.4,arrowinset=0.0]{->}(13.2,3.025)(12.575305,2.244131)(12.229857,0.86753565)(13.2,0.625)(14.170142,0.38246438)(14.8,1.625)(14.8,2.625)
+		\psbezier[linecolor=black, linewidth=0.02, arrowsize=0.05291667cm 2.0,arrowlength=1.4,arrowinset=0.0]{->}(14.8,3.825)(14.8,4.825)(15.051316,6.1412277)(16.0,5.825)(16.948683,5.5087724)(16.514496,4.282493)(16.0,3.425)
+		\psbezier[linecolor=black, linewidth=0.02, arrowsize=0.05291667cm 2.0,arrowlength=1.4,arrowinset=0.0]{->}(8.8,-2.975)(9.424695,-2.1941311)(9.770143,-0.81753564)(8.8,-0.575)(7.8298573,-0.33246437)(7.2,-1.575)(7.2,-2.575)
+		\psbezier[linecolor=black, linewidth=0.02, arrowsize=0.05291667cm 2.0,arrowlength=1.4,arrowinset=0.0]{->}(7.2,-3.775)(7.2,-4.775)(6.9486833,-6.0912275)(6.0,-5.775)(5.0513167,-5.458772)(5.485504,-4.232493)(6.0,-3.375)
+		\rput[bl](17.6,5.825){timeout}
+		\rput[bl](16.8,5.425){udt\_send(sndpkt)}
+		\rput[bl](16.8,5.025){start\_timer}
+		\psline[linecolor=black, linewidth=0.02](16.4,5.825)(20.0,5.825)
+		\rput[bl](10.0,1.825){rdt\_rcv(D0)}
+		\rput[bl](10.8,1.425){$\wedge$}
+		\psline[linecolor=black, linewidth=0.02](9.6,1.825)(12.4,1.825)
+		\rput[bl](10.0,-1.775){rdt\_rcv(D1)}
+		\rput[bl](10.8,-2.175){$\wedge$}
+		\psline[linecolor=black, linewidth=0.02](9.6,-1.775)(12.4,-1.775)
+		\rput[bl](2.8,-4.975){timeout}
+		\rput[bl](2.0,-5.375){udt\_send(sndpkt)}
+		\rput[bl](2.0,-5.775){start\_timer}
+		\psline[linecolor=black, linewidth=0.02](1.6,-4.975)(5.2,-4.975)
+		\rput[bl](18.4,0.625){rdt\_rcv(D0)}
+		\rput[bl](18.4,0.225){\&\& notCorrupt(D0)}
+		\psline[linecolor=black, linewidth=0.02](18.0,0.225)(22.0,0.225)
+		\rput[bl](18.8,-0.175){stop\_timer}
+		\rput[bl](0.4,0.625){rdt\_rcv(D1)}
+		\rput[bl](0.4,0.225){\&\& notCorrupt(D1)}
+		\psline[linecolor=black, linewidth=0.02](0.0,0.225)(4.0,0.225)
+		\rput[bl](0.8,-0.175){stop\_timer}
+		\rput[bl](9.2,-5.375){rdt\_send(R1)}
+		\rput[bl](9.24,-5.775){sndpkt=make\_pkt(R1)}
+		\rput[bl](9.2,-6.175){udt\_send(sndpkt)}
+		\psline[linecolor=black, linewidth=0.02](8.8,-5.375)(13.2,-5.375)
+		\rput[bl](9.2,-6.575){start\_timer}
+		\psline[linecolor=black, linewidth=0.02, doubleline=true, doublesep=0.12, dotsize=0.07055555cm 2.0,arrowsize=0.05291667cm 2.0,arrowlength=1.4,arrowinset=0.0]{cc->}(4.8,5.425)(6.4,3.825)
+		\end{pspicture}
+	}
+	
+\end{center} 
+b(Sender)'s FSM:
+\begin{center}
+	\psscalebox{0.6 0.6} % Change this value to rescale the drawing.
+	{
+		\begin{pspicture}(0,-1.9937637)(15.6,1.9937637)
+		\rput[bl](4.0,0.0062362887){Wait for R0}
+		\pscircle[linecolor=black, linewidth=0.02, dimen=outer](4.8,0.0062362887){1.2}
+		\rput[bl](10.0,0.0062362887){Wait for R1}
+		\pscircle[linecolor=black, linewidth=0.02, dimen=outer](10.8,0.0062362887){1.2}
+		\psline[linecolor=black, linewidth=0.02, doubleline=true, doublesep=0.12, dotsize=0.07055555cm 2.0,arrowsize=0.05291667cm 2.0,arrowlength=1.4,arrowinset=0.0]{cc->}(2.8,2.0062363)(4.0,0.80623627)
+		\psline[linecolor=black, linewidth=0.02, arrowsize=0.05291667cm 2.0,arrowlength=1.4,arrowinset=0.0]{->}(4.8,1.2062362)(10.8,1.2062362)
+		\psline[linecolor=black, linewidth=0.02, arrowsize=0.05291667cm 2.0,arrowlength=1.4,arrowinset=0.0]{->}(10.8,-1.1937637)(4.8,-1.1937637)
+		\rput[bl](6.8,1.6062363){rdt\_rcv(R0)}
+		\rput[bl](6.8,1.2062362){send\_pkt(D0)}
+		\psline[linecolor=black, linewidth=0.02](6.4,1.6062363)(9.2,1.6062363)
+		\rput[bl](6.8,-1.5937637){rdt\_rcv(R1)}
+		\rput[bl](6.8,-1.9937637){send\_pkt(D1)}
+		\psline[linecolor=black, linewidth=0.02](6.4,-1.5937637)(9.2,-1.5937637)
+		\psbezier[linecolor=black, linewidth=0.02, arrowsize=0.05291667cm 2.0,arrowlength=1.4,arrowinset=0.0]{->}(11.6,0.80623627)(12.4,1.2062362)(12.8,0.4062363)(12.8,0.006236288547515869)(12.8,-0.39376372)(12.4,-1.1937637)(11.6,-0.7937637)
+		\psbezier[linecolor=black, linewidth=0.02, arrowsize=0.05291667cm 2.0,arrowlength=1.4,arrowinset=0.0]{->}(4.0,0.80623627)(3.2,1.2062362)(2.8,0.4062363)(2.8,0.006236288547515869)(2.8,-0.39376372)(3.2,-1.1937637)(4.0,-0.7937637)
+		\rput[bl](13.6,0.0062362887){rdt\_rcv(R1)}
+		\rput[b](14.4,-0.39376372){$\wedge$}
+		\psline[linecolor=black, linewidth=0.02](13.2,0.0062362887)(15.6,0.0062362887)
+		\rput[bl](0.4,0.0062362887){rdt\_rcv(R0)}
+		\rput[b](1.2,-0.39376372){$\wedge$}
+		\psline[linecolor=black, linewidth=0.02](0.0,0.0062362887)(2.4,0.0062362887)
+		\end{pspicture}
+	}
+\end{center}

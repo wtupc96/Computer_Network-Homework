@@ -1,9 +1,18 @@
 \documentclass[]{article}
 \usepackage{xeCJK}
 \usepackage{subfiles}
+\usepackage[usenames,dvipsnames]{pstricks}
+\usepackage{epsfig}
+\usepackage{pst-grad} % For gradients
+\usepackage{pst-plot} % For axes
+\usepackage[space]{grffile} % For spaces in paths
+\usepackage{etoolbox} % For spaces in paths
+\makeatletter % For spaces in paths
+\patchcmd\Gread@eps{\@inputcheck#1 }{\@inputcheck"#1"\relax}{}{}
+\makeatother
 %opening
 \title{Computer Networking: A Top-Down Approach \\ Homework 3}
-\author{Class 42 \\ 欧阳鹏程 \\ 2141601030 \\ Copyright Notice: BY-NC-SA}
+\author{Class 42 \\ 欧阳鹏程 \\ 2141601030 \\ Copyright Notice: Creative Commons BY-NC-SA}
 
 \begin{document}
 
@@ -23,49 +32,55 @@
 	\subitem Reliable receiving
 	\subitem Flow control
 	\subitem Congestion control
-	%\subfile{3ans.tex}
+	\subfile{3ans.tex}
 \end{enumerate}
 
 \section{Problems on textbooks}
-\begin{enumerate}
-	\item[R3.] Consider a TCP connection between Host A and Host B. 
-	
-	Suppose that the TCP segments traveling from Host A to Host B have source port number x and destination port number y. What are the source and destination port numbers for the segments traveling from Host B to Host A?
-	\subfile{R3ans.tex}
-	
-	\item[R4.] Describe why an application developer might choose to run an application over UDP rather than TCP.
-	\subfile{R4ans.tex}
-	
-	\item[R7.] Suppose a process in Host C has a UDP socket with port number 6789. Suppose both Host A and Host B each send a UDP segment to Host C with destination port number 6789. Will both of these segments be directed to the same socket at Host C? If so, how will the process at Host C know that these two segments originated from two different hosts?
-	\subfile{R7ans.tex}
-	
-	\item[P4.] 
-	\subitem a. Suppose you have the following 2 bytes: 01011100 and 01100101. What is the 1s complement of the sum of these 2 bytes?
-	\subitem b. Suppose you have the following 2 bytes: 11011010 and 01100101. What is the 1s complement of the sum of these 2 bytes?
-	\subitem c. For the bytes in part (a), give an example where one bit is flipped in each	of the 2 bytes and yet the 1s complement doesn’t change.
-	\subfile{P4ans.tex}
-	
-	\item[P10.] Consider a channel that can lose packets but has a maximum delay that is known. Modify protocol rdt2.1 to include sender timeout and retransmit.	Informally argue why your protocol can communicate correctly over this	channel.
-	\subfile{P10ans.tex}
-	
-	\item[P16.] Suppose an application uses rdt 3.0 as its transport layer protocol. As the stop-and-wait protocol has very low channel utilization (shown in the crosscountry example), the designers of this application let the receiver keep sending back a number (more than two) of alternating ACK 0 and ACK 1 even ifPROBLEMS 291	the corresponding data have not arrived at the receiver. Would this application design increase the channel utilization? Why? Are there any potential problems with this approach? Explain.
-	\subfile{P16ans.tex}
-	
-	\item[P21.] Suppose we have two network entities, A and B. B has a supply of data messages that will be sent to A according to the following conventions. When A	gets a request from the layer above to get the next data (D) message from B, A must send a request (R) message to B on the A-to-B channel. Only when B	receives an R message can it send a data (D) message back to A on the B-toA channel. A should deliver exactly one copy of each D message to the layer	above. R messages can be lost (but not corrupted) in the A-to-B channel; D	messages, once sent, are always delivered correctly. The delay along both channels is unknown and variable. 
-	
-	Design (give an FSM description of) a protocol that incorporates the appropriate mechanisms to compensate for the loss-prone A-to-B channel and implements message passing to the layer above at entity A, as discussed above. Use only those mechanisms that are absolutely necessary.
-	\subfile{P21ans.tex}
-	
-	\item[P27.] Host A and B are communicating over a TCP connection, and Host B has already received from A all bytes up through byte 126. Suppose Host A then sends two segments to Host B back-to-back. The first and second segments	contain 80 and 40 bytes of data, respectively. In the first segment, the sequence number is 127, the source port number is 302, and the destination	port number is 80. Host B sends an acknowledgment whenever it receives a segment from Host A.
-	\subitem a. In the second segment sent from Host A to B, what are the sequence number, source port number, and destination port number?
-	\subitem b. If the first segment arrives before the second segment, in the acknowledgment of the first arriving segment, what is the acknowledgment number,
-	the source port number, and the destination port number?
-	\subitem c. If the second segment arrives before the first segment, in the acknowledgment of the first arriving segment, what is the acknowledgment
-	number?
-	\subitem d. Suppose the two segments sent by A arrive in order at B. The first acknowledgment is lost and the second acknowledgment arrives after the first timeout interval. Draw a timing diagram, showing these segments and all other segments and acknowledgments sent. (Assume there is no additional packet loss.) For each segment in your figure, provide the sequence number and	the number of bytes of data; for each acknowledgment that you add, provide the acknowledgment number.
-	\subfile{P27ans.tex}
-	
-	\item[P33.] In Section 3.5.3, we discussed TCP’s estimation of RTT. Why do you think TCP avoids measuring the SampleRTT for retransmitted segments?
-	\subfile{P33ans.tex}
-\end{enumerate}
+	\begin{enumerate}
+		\item[R3.] Consider a TCP connection between Host A and Host B. 
+		
+		Suppose that the TCP segments traveling from Host A to Host B have source port number x and destination port number y. What are the source and destination port numbers for the segments traveling from Host B to Host A?
+		\subfile{R3ans.tex}
+		
+		\item[R4.] Describe why an application developer might choose to run an application over UDP rather than TCP.
+		\subfile{R4ans.tex}
+		
+		\item[R7.] Suppose a process in Host C has a UDP socket with port number 6789. Suppose both Host A and Host B each send a UDP segment to Host C with destination port number 6789. Will both of these segments be directed to the same socket at Host C? If so, how will the process at Host C know that these two segments originated from two different hosts?
+		\subfile{R7ans.tex}
+		
+		\item[P4.] 
+		\subitem a. Suppose you have the following 2 bytes: 01011100 and 01100101. What is the 1s complement of the sum of these 2 bytes?
+		\subitem b. Suppose you have the following 2 bytes: 11011010 and 01100101. What is the 1s complement of the sum of these 2 bytes?
+		\subitem c. For the bytes in part (a), give an example where one bit is flipped in each of the 2 bytes and yet the 1s complement doesn’t change.
+		\subfile{P4ans.tex}
+		
+		\item[P10.] Consider a channel that can lose packets but has a maximum delay that is known. Modify protocol rdt2.1 to include sender timeout and retransmit.	Informally argue why your protocol can communicate correctly over this	channel.
+		\subfile{P10ans.tex}
+		
+		\item[P16.] Suppose an application uses rdt 3.0 as its transport layer protocol. As the stop-and-wait protocol has very low channel utilization (shown in the crosscountry example), the designers of this application let the receiver keep sending back a number (more than two) of alternating ACK 0 and ACK 1 even if the corresponding data have not arrived at the receiver. Would this application design increase the channel utilization? Why? Are there any potential problems with this approach? Explain.
+		\subfile{P16ans.tex}
+		
+		\item[P21.] Suppose we have two network entities, A and B. B has a supply of data messages that will be sent to A according to the following conventions. 
+		\begin{itemize}
+			\item When A gets a request from the layer above to get the next data (D) message from B, A must send a request (R) message to B on the A-to-B channel. 
+			\item Only when B receives an R message can it send a data (D) message back to A on the B-to-A channel.
+			\item A should deliver exactly one copy of each D message to the layer above.
+			\item R messages can be lost (but not corrupted) in the A-to-B channel; D messages, once sent, are always delivered correctly.
+			\item The delay along both channels is unknown and variable. 
+		\end{itemize}
+		
+		Design (give an FSM description of) a protocol that incorporates the appropriate mechanisms to compensate for the loss-prone A-to-B channel and implements message passing to the layer above at entity A, as discussed above. Use only those mechanisms that are absolutely necessary.
+		\subfile{P21ans.tex}
+		
+		\item[P27.] Host A and B are communicating over a TCP connection, and Host B has already received from A all bytes up through byte 126. Suppose Host A then sends two segments to Host B back-to-back. The first and second segments	contain 80 and 40 bytes of data, respectively. In the first segment, the sequence number is 127, the source port number is 302, and the destination port number is 80. Host B sends an acknowledgment whenever it receives a segment from Host A.
+		\subitem a. In the second segment sent from Host A to B, what are the sequence number, source port number, and destination port number?
+		\subitem b. If the first segment arrives before the second segment, in the acknowledgment of the first arriving segment, what is the acknowledgment number, the source port number, and the destination port number?
+		\subitem c. If the second segment arrives before the first segment, in the acknowledgment of the first arriving segment, what is the acknowledgment number?
+		\subitem d. Suppose the two segments sent by A arrive in order at B. The first acknowledgment is lost and the second acknowledgment arrives after the first timeout interval. Draw a timing diagram, showing these segments and all other segments and acknowledgments sent. (Assume there is no additional packet loss.) For each segment in your figure, provide the sequence number and the number of bytes of data; for each acknowledgment that you add, provide the acknowledgment number.
+		\subfile{P27ans.tex}
+		
+		\newpage
+		\item[P33.] In Section 3.5.3, we discussed TCP’s estimation of RTT. Why do you think TCP avoids measuring the SampleRTT for retransmitted segments?
+		\subfile{P33ans.tex}
+	\end{enumerate}
 \end{document}

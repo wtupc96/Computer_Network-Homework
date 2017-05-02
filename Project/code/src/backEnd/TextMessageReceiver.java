@@ -15,7 +15,8 @@ public class TextMessageReceiver {
 
     public TextMessageReceiver() {
         try {
-            serverSocket = new ServerSocket(10005);
+            serverSocket = new ServerSocket(9527);
+            System.out.println("TCP 9527");
             getSocket = serverSocket.accept();
             bufferedReader = new BufferedReader(new InputStreamReader(getSocket.getInputStream()));
             bufferedWriter = new BufferedWriter(new OutputStreamWriter(getSocket.getOutputStream()));
@@ -26,8 +27,7 @@ public class TextMessageReceiver {
 
     public String receiveMessage() {
         try {
-            String message = bufferedReader.readLine();
-            return message;
+            return bufferedReader.readLine();
         } catch (IOException e) {
             e.printStackTrace();
         }

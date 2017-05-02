@@ -13,7 +13,7 @@ import static frontEnd.MultiFuncMenu.*;
 /**
  * Created by wtupc96 on 2017/4/10.
  */
-public class TopMenu extends JMenuBar {
+class TopMenu extends JMenuBar {
     private static final JMenuItem jBreakMenuItem = new JMenuItem("连接");
     private static final JMenuItem jQuitMenuItem = new JMenuItem("退出");
     private static Chat chat;
@@ -42,7 +42,6 @@ public class TopMenu extends JMenuBar {
                     try {
                         textMessageSender = new TextMessageSender(input);
                         flag = true;
-
                         sendThread = new Thread(new Runnable() {
                             String message;
 
@@ -54,8 +53,8 @@ public class TopMenu extends JMenuBar {
                                     }
                                     ChattingRoom.getjChattingRoomTextField().append(new Date().toString() + "   " + input + "说：\n" + message + "\n\n");
                                 }
-                                jBreakMenuItem.doClick();
                                 sendThread.interrupt();
+                                jBreakMenuItem.doClick();
                             }
                         });
 
@@ -74,8 +73,8 @@ public class TopMenu extends JMenuBar {
                                     }
                                     ChattingRoom.getjChattingRoomTextField().append(new Date().toString() + "   " + input + "说：\n" + message + "\n\n");
                                 }
-                                jBreakMenuItem.doClick();
                                 receiveThread.interrupt();
+                                jBreakMenuItem.doClick();
                             }
                         });
 

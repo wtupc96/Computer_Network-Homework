@@ -7,15 +7,12 @@ import java.net.InetAddress;
 
 class UDPSender {
 
-    private final int port;
     private final DatagramPacket dgp;
     //    private MulticastSocket s;
     private DatagramSocket s;
     private InetAddress group;
 
     UDPSender(String groupAddress, int port) {
-        this.port = port;
-        System.out.println(port);
         try {
 //            s = new MulticastSocket();
             s = new DatagramSocket();

@@ -8,10 +8,10 @@ public class Chat {
         int indexOfPort = targetPeer.indexOf(':');
 
         // SoundSender第一个参数是目的地的IP，第二个参数是目的地端口，第三个参数是缓存大小
-        soundSender = new SoundSender(targetPeer.substring(0, indexOfPort), 9999, 1024);
+        soundSender = new SoundSender(targetPeer.substring(0, indexOfPort));
 
         // SoundReceiver第一个参数是本机接收IP，第二个参数是本机接收端口，第三个参数是缓存大小
-        soundReceiver = new SoundReceiver("localhost", 10000, 1024);
+        soundReceiver = new SoundReceiver();
     }
 
     public void soundStart() {

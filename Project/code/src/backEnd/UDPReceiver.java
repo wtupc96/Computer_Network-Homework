@@ -21,9 +21,9 @@ class UDPReceiver {
     UDPReceiver(String groupAddress, int port, int bufferSize) {
         try {
             s = new MulticastSocket(port);
-            group = InetAddress.getByName(groupAddress);//groupһ��Ҫ�Ǹ��鲥�飡��231.0.0.1
+            group = InetAddress.getByName(groupAddress);
 //            s.joinGroup(group);
-            //s.setLoopbackMode(true);//�ھ���������ʱ�����Խ���ֹ�ص���
+            //s.setLoopbackMode(true);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -64,7 +64,7 @@ class UDPReceiver {
         try {
             s.receive(dgp);
         } catch (Exception e) {
-//            e.printStackTrace();
+            e.printStackTrace();
         }
         return buffer;
     }

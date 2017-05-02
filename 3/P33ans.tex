@@ -1,0 +1,86 @@
+\paragraph{A.}
+Here are three circumstances when retransmit occurs:
+\begin{itemize}
+	\item First:
+	\begin{center}
+		\psscalebox{1.0 1.0} % Change this value to rescale the drawing.
+		{
+			\begin{pspicture}(0,-4.9994793)(7.305,4.9994793)
+			\psline[linecolor=black, linewidth=0.02, doubleline=true, doublesep=0.02, dotsize=0.07055555cm 2.0,arrowsize=0.05291667cm 2.0,arrowlength=1.4,arrowinset=0.0]{cc->}(3.2,4.4794793)(3.2,-5.1205206)
+			\psline[linecolor=black, linewidth=0.02, doubleline=true, doublesep=0.02, dotsize=0.07055555cm 2.0,arrowsize=0.05291667cm 2.0,arrowlength=1.4,arrowinset=0.0]{cc->}(7.2,4.4794793)(7.2,-5.1205206)
+			\rput(3.2,4.8794794){A}
+			\rput(7.2,4.8794794){B}
+			\psline[linecolor=black, linewidth=0.02, arrowsize=0.05291667cm 2.0,arrowlength=1.4,arrowinset=0.0]{->}(3.2,4.079479)(7.2,2.4794793)
+			\psline[linecolor=black, linewidth=0.02, arrowsize=0.05291667cm 2.0,arrowlength=1.4,arrowinset=0.0]{->}(7.2,2.4794793)(4.4,1.2794793)
+			\psbezier[linecolor=black, linewidth=0.02](3.2,4.079479)(2.8,4.079479)(2.4,4.079479)(2.4,1.679479217529297)(2.4,-0.7205208)(2.8,-0.7205208)(3.2,-0.7205208)
+			\psline[linecolor=black, linewidth=0.02, arrowsize=0.05291667cm 2.0,arrowlength=1.4,arrowinset=0.0]{->}(3.2,-0.7205208)(7.2,-2.3205209)
+			\rput[bl](1.6,1.6794792){Timeout}
+			\rput[bl](2.0,1.2794793){interval}
+			\rput[bl](4.4,1.6794792){Lost}
+			\psline[linecolor=black, linewidth=0.02, arrowsize=0.05291667cm 2.0,arrowlength=1.4,arrowinset=0.0]{->}(7.2,-2.3205209)(3.2,-4.320521)
+			\psbezier[linecolor=black, linewidth=0.02](3.2,4.079479)(2.4,4.079479)(1.2,4.079479)(1.2,0.07947921752929688)(1.2,-3.9205208)(2.4,-4.320521)(3.2,-4.320521)
+			\rput[bl](0.0,-0.3205208){SampleRTT}
+			\end{pspicture}
+		}
+	\end{center}
+	Clearly, the sender(A) cannot identify whether the ACK is for $Packet_{1}$ or $Packet_{2}$. If the ACK is mistaken for $Packet_{1}$, the SampleRTT is clearly wrong which may be twice as much the correct one.
+
+	\newpage
+	\item Second:
+	\begin{center}
+		\psscalebox{1.0 1.0} % Change this value to rescale the drawing.
+		{
+			\begin{pspicture}(0,-4.3994794)(7.6,4.3994794)
+			\psline[linecolor=black, linewidth=0.02, doubleline=true, doublesep=0.02, dotsize=0.07055555cm 2.0,arrowsize=0.05291667cm 2.0,arrowlength=1.4,arrowinset=0.0]{cc->}(3.2,3.8794792)(3.2,-4.5205207)
+			\psline[linecolor=black, linewidth=0.02, doubleline=true, doublesep=0.02, dotsize=0.07055555cm 2.0,arrowsize=0.05291667cm 2.0,arrowlength=1.4,arrowinset=0.0]{cc->}(7.2,3.8794792)(7.2,-4.5205207)
+			\rput(3.2,4.279479){A}
+			\rput(7.2,4.279479){B}
+			\psline[linecolor=black, linewidth=0.02, arrowsize=0.05291667cm 2.0,arrowlength=1.4,arrowinset=0.0]{->}(3.2,3.4794793)(7.2,1.4794792)
+			\psline[linecolor=black, linewidth=0.02, arrowsize=0.05291667cm 2.0,arrowlength=1.4,arrowinset=0.0]{->}(7.2,1.4794792)(3.2,-0.5205208)
+			\psbezier[linecolor=black, linewidth=0.02](3.2,3.4794793)(2.8,3.4794793)(2.4,3.4794793)(2.4,1.879479217529297)(2.4,0.2794792)(2.8,0.2794792)(3.2,0.2794792)
+			\psline[linecolor=black, linewidth=0.02, arrowsize=0.05291667cm 2.0,arrowlength=1.4,arrowinset=0.0]{->}(3.2,0.2794792)(7.2,-1.3205208)
+			\rput[bl](1.6,1.8794792){Timeout}
+			\rput[bl](2.0,1.4794792){interval}
+			\psline[linecolor=black, linewidth=0.02, arrowsize=0.05291667cm 2.0,arrowlength=1.4,arrowinset=0.0]{->}(7.2,-1.3205208)(3.2,-3.3205209)
+			\psbezier[linecolor=black, linewidth=0.02](3.2,3.4794793)(2.4,3.4794793)(1.2,3.4794793)(1.2,0.2794792175292969)(1.2,-2.9205208)(2.4,-3.3205209)(3.2,-3.3205209)
+			\rput[bl](0.0,-0.9205208){SampleRTT}
+			\rput[bl](2.8,3.4794793){$t_{0}$}
+			\rput[br](7.6,1.4794792){$t_{1}$}
+			\rput[bl](2.8,-0.5205208){$t_{2}$}
+			\rput[bl](7.6,-1.9205209){$t_{3}$}
+			\rput[bl](2.8,-3.3205209){$t_{4}$}
+			\end{pspicture}
+		}
+	\end{center}
+	When the sender(A) receive the first ACK(ACK1) which arrives at $t_{2}$, it cannot identify whether it is for $Packet_{1}$ or $Packet_{2}$. If it is taken as the second, it is surly wrong.
+	
+	\newpage
+	\item Third:
+	\begin{center}
+		\psscalebox{1.0 1.0} % Change this value to rescale the drawing.
+		{
+			\begin{pspicture}(0,-4.3994794)(7.85,4.3994794)
+			\psline[linecolor=black, linewidth=0.02, doubleline=true, doublesep=0.02, dotsize=0.07055555cm 2.0,arrowsize=0.05291667cm 2.0,arrowlength=1.4,arrowinset=0.0]{cc->}(3.2,3.8794792)(3.2,-4.5205207)
+			\psline[linecolor=black, linewidth=0.02, doubleline=true, doublesep=0.02, dotsize=0.07055555cm 2.0,arrowsize=0.05291667cm 2.0,arrowlength=1.4,arrowinset=0.0]{cc->}(7.2,3.8794792)(7.2,-4.5205207)
+			\rput(3.2,4.279479){A}
+			\rput(7.2,4.279479){B}
+			\psline[linecolor=black, linewidth=0.02, arrowsize=0.05291667cm 2.0,arrowlength=1.4,arrowinset=0.0]{->}(3.2,3.4794793)(5.6,2.2794793)
+			\psbezier[linecolor=black, linewidth=0.02](3.2,3.4794793)(2.8,3.4794793)(2.4,3.4794793)(2.4,1.879479217529297)(2.4,0.2794792)(2.8,0.2794792)(3.2,0.2794792)
+			\psline[linecolor=black, linewidth=0.02, arrowsize=0.05291667cm 2.0,arrowlength=1.4,arrowinset=0.0]{->}(3.2,0.2794792)(7.2,-1.3205208)
+			\rput[bl](1.6,1.8794792){Timeout}
+			\rput[bl](2.0,1.4794792){interval}
+			\psline[linecolor=black, linewidth=0.02, arrowsize=0.05291667cm 2.0,arrowlength=1.4,arrowinset=0.0]{->}(7.2,-1.3205208)(3.2,-3.3205209)
+			\psbezier[linecolor=black, linewidth=0.02](3.2,3.4794793)(2.4,3.4794793)(1.2,3.4794793)(1.2,0.2794792175292969)(1.2,-2.9205208)(2.4,-3.3205209)(3.2,-3.3205209)
+			\rput[bl](0.0,-0.9205208){SampleRTT}
+			\rput[bl](2.8,3.4794793){$t_{0}$}
+			\rput[br](3.6,0.2794792){$t_{1}$}
+			\rput[bl](7.6,-1.3205208){$t_{2}$}
+			\rput[bl](5.6,2.2794793){Lost}
+			\rput[bl](2.8,-3.3205209){$t_{3}$}
+			\end{pspicture}
+		}
+	\end{center}
+	The same idea as those two circumstances have.
+\end{itemize}
+
+\textbf{All in all, the sender cannot tell whether the ACK packet is for. So we avoid measuring the SampleRTT for retransmitted segments.}

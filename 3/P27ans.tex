@@ -1,0 +1,57 @@
+\paragraph{A.}
+\begin{enumerate}
+	\item 
+	sequence number: 207 \\
+	source port number: 302 \\
+	destination port number: 80
+	
+	\item 
+	the acknowledgment number: 207\\
+	the source port number: 80\\
+	the destination port number: 302
+	
+	\item the acknowledgment number: 127
+	
+	\item Timing diagram:
+	\begin{center}
+		\psscalebox{1.0 1.0} % Change this value to rescale the drawing.
+		{
+			\begin{pspicture}(0,-7.199479)(10.905,7.199479)
+			\psline[linecolor=black, linewidth=0.02, doubleline=true, doublesep=0.02, dotsize=0.07055555cm 2.0,arrowsize=0.05291667cm 2.0,arrowlength=1.4,arrowinset=0.0]{cc->}(2.4,6.4533916)(2.4,-7.3205214)
+			\psline[linecolor=black, linewidth=0.02, doubleline=true, doublesep=0.02, dotsize=0.07055555cm 2.0,arrowsize=0.05291667cm 2.0,arrowlength=1.4,arrowinset=0.0]{cc->}(10.8,6.4533916)(10.8,-7.3205214)
+			\rput(2.4,7.079479){A}
+			\rput(10.8,7.079479){B}
+			\psline[linecolor=black, linewidth=0.02, arrowsize=0.05291667cm 2.0,arrowlength=1.4,arrowinset=0.0]{->}(2.4,5.827305)(10.8,3.3229573)
+			\psline[linecolor=black, linewidth=0.02, arrowsize=0.05291667cm 2.0,arrowlength=1.4,arrowinset=0.0]{->}(2.4,3.9490442)(10.8,1.4446963)
+			\psline[linecolor=black, linewidth=0.02, arrowsize=0.05291667cm 2.0,arrowlength=1.4,arrowinset=0.0]{->}(10.8,3.3229573)(6.0,1.4446963)
+			\psline[linecolor=black, linewidth=0.02, arrowsize=0.05291667cm 2.0,arrowlength=1.4,arrowinset=0.0]{->}(10.8,1.4446963)(2.4,-1.6857383)
+			\psbezier[linecolor=black, linewidth=0.02](2.4,5.827305)(2.0,5.827305)(1.6,5.5142617)(1.6,3.949044190110121)(1.6,2.3838267)(2.0,2.0707834)(2.4,2.0707834)
+			\psbezier[linecolor=black, linewidth=0.02](2.4,3.9490442)(2.0,3.9490442)(1.6,3.6360009)(1.6,2.0707833426621143)(1.6,0.5055658)(2.0,0.1925225)(2.4,0.1925225)
+			\psline[linecolor=black, linewidth=0.02, arrowsize=0.05291667cm 2.0,arrowlength=1.4,arrowinset=0.0]{->}(2.4,0.1925225)(10.8,-2.3118253)
+			\psline[linecolor=black, linewidth=0.02, arrowsize=0.05291667cm 2.0,arrowlength=1.4,arrowinset=0.0]{->}(10.8,-2.3118253)(2.4,-5.44226)
+			\rput[bl](0.0,4.575131){Timeout}
+			\rput[bl](0.0,2.0707834){Timeout}
+			\rput[bl](0.4,1.4446963){interval}
+			\rput[bl](0.4,3.9490442){interval}
+			\rput[bl](3.2,5.827305){Seq = 127 ,}
+			\rput[bl](4.0,5.201218){length = 80 bytes}
+			\rput[bl](5.2,1.4446963){Lost}
+			\rput[bl](3.2,3.9490442){Seq = 207 ,}
+			\rput[bl](4.0,3.3229573){length = 40 bytes}
+			\rput[bl](7.6,2.6968703){ACK = 207}
+			\rput[bl](7.6,0.8186095){ACK = 247}
+			\rput[bl](3.2,0.1925225){Seq = 207 ,}
+			\rput[bl](4.0,-0.43356448){length = 40 bytes}
+			\rput[bl](7.6,-2.9379122){ACK = 247}
+			\psline[linecolor=black, linewidth=0.02, arrowsize=0.05291667cm 2.0,arrowlength=1.4,arrowinset=0.0]{->}(2.4,2.079479)(10.8,-0.32052094)
+			\psline[linecolor=black, linewidth=0.02, arrowsize=0.05291667cm 2.0,arrowlength=1.4,arrowinset=0.0]{->}(10.8,-0.32052094)(2.4,-3.520521)
+			\rput[bl](2.8,2.479479){Seq=127,}
+			\rput[bl](3.2,2.079479){length = 80 bytes}
+			\rput[bl](7.6,-0.7205209){ACK = 207}
+			\psline[linecolor=black, linewidth=0.02, arrowsize=0.05291667cm 2.0,arrowlength=1.4,arrowinset=0.0]{->}(2.4,-3.520521)(10.8,-5.920521)
+			\rput[bl](3.2,-3.520521){Seq=207,}
+			\rput[bl](3.6,-3.920521){length = 40 bytes}
+			\end{pspicture}
+		}
+	\end{center}
+\end{enumerate}

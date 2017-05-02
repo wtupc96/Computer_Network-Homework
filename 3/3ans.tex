@@ -1,1 +1,96 @@
 \paragraph{A.}
+\begin{itemize}
+	\item 
+	\textbf{Reliable sending:}\\
+	NextSeqNum=InitialSeqNumber\\
+	SendBase=InitialSeqNumber\\
+	loop (forever) \{\\
+	switch(event)\\
+	event: data received from application\\ 
+	create TCP segment with sequence number NextSeqNum\\
+	if (timer currently not running)\\
+	start timer\\
+	pass segment to IP\\
+	NextSeqNum=NextSeqNum+length(data)\\
+	break;\\
+	
+	event: timer timeout\\
+	retransmit not-yet-acknowledged segment with\\
+	smallest sequence number\\
+	start timer\\
+	break;\\
+	
+	event: ACK received, with ACK field value of y\\
+	if (y > SendBase) \{\\
+	SendBase=y\\
+	if (there are currently any not yet acknowledged segments)\\
+	start timer\\
+	\}\\
+	else \{ /* a duplicate ACK for already ACKed segment */\\
+	increment number of duplicate ACKs received for y\\
+	if (number of duplicate ACKS receivedfor y==3)\\
+	/* TCP fast retransmit */\\
+	resend segment with sequence number y\\
+	\}\\
+	break;\\
+	\}\\
+	
+	\item
+	\textbf{Reliable receiving:}\\
+	ACKNumber=InitialACKNumber\\
+	loop(forever)\{\\
+	switch(event)\\
+	event: data received from IP\\
+	create segment with ACK number ACKNumber\\
+	if(data.SeqNumber == ACKNumber)\{\\
+	ACKNumber = ACKNumber + data.SeqNumber\\
+	\}\\
+	pass segment to IP\\
+	\}\\
+	
+	\item
+	\textbf{Flow control:}\\
+	Receiver:\\
+	RcvWindow=RcvBuffer\\
+	loop(forever)\{\\
+	switch(event)\\
+	event: data received from IP\\
+	RcvWindow=RcvBuffer-(LastByteRcvd-LastByteRead)\\
+	create segment with RcvWindow\\
+	pass segment to IP\\
+	\}\\
+	
+	Sender:\\
+	loop(forever)\{\\
+	switch(event)\\
+	event: data received from IP\\
+	if(LastByteSent-LastByteAcked > data.RcvWindow)\\
+	stop sending data\\
+	else\\
+	send a new segment\\
+	\}\\
+	
+	\item
+	\textbf{Congestion control:}\\
+	loop(forever)\{\\
+	switch(event)\\
+	event: ACK receipt for previously unAcked data\\
+	if(state==Slow Start)\\\{
+	CongWin=CongWin+MSS\\
+	if(CongWin>Threshold)\\
+	state=Congestion Avoidance\\\}
+	if(state==Congestion Avoidance)\{\\
+	CongWin=Congwin+MSS$\cdot$(MSS/CongWin)\\
+	\}\\
+	event: Loss event detected by triple duplicate ACK\\
+	Threshold=CongWin/2\\
+	CongWin=Threshold\\
+	state=Congestion Avoidance\\
+	event: Timeout\\
+	Threshold=CongWin/2\\
+	CongWin=1MSS\\
+	state=Slow Start\\
+	event: Duplicate ACK\\
+	Increment duplicate ACK count for segment begin Acked\\
+	\}
+\end{itemize}

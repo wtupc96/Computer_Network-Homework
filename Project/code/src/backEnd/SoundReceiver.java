@@ -10,10 +10,8 @@ class SoundReceiver extends UDPReceiver implements Runnable {
     private Thread thread;
     private boolean isStart;
 
-    public SoundReceiver(String groupAddress,
-                         int port,
-                         int bufferSize) {
-        super(groupAddress, port, bufferSize);
+    public SoundReceiver() {
+        super("localhost", 9527, 1024);
         AudioFormat format = new AudioFormat(8000, 16, 2, true, true);
         DataLine.Info info = new DataLine.Info(SourceDataLine.class, format);
         try {
@@ -28,8 +26,14 @@ class SoundReceiver extends UDPReceiver implements Runnable {
         while (isStart && !thread.isInterrupted()) {
             byte[] data = super.receive();
             line.write(data, 0, data.length);
-            System.out.println(HexBin.encode(data));
+
+            // 进一步将音频保存到文件中
+            saveToFile(data);
         }
+    }
+
+    private void saveToFile(byte[] data) {
+        System.out.print(HexBin.encode(data));
     }
 
     public void start() {

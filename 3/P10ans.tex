@@ -1,1 +1,7 @@
 \paragraph{A.}
+Now, we add a timer to sender in \textbf{rdt2.1} for the states \textbf{Wait for ACK or NAK 0} and \textbf{Wait for ACK or NAK 1}.
+If the timeout occurs, then it will trigger the retransmitting event which will resend the latest packet.
+\begin{enumerate}
+	\item If a data packet lost results in the timeout event, the sender will retransmit the packet until the data packet is received.
+	\item If a ACK/NAK packet lost results in the timeout event, the sender will retransmit the packet until sender gets the ACK/NAK packet.
+\end{enumerate}
