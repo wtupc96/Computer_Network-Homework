@@ -1,0 +1,195 @@
+\documentclass[]{article}
+\usepackage{xeCJK}
+\usepackage{subfiles}
+\usepackage{float}
+
+%opening
+\title{Computer Networking: A Top-Down Approach \\ Homework 4}
+\author{Class 42 \\ 欧阳鹏程 \\ 2141601030 \\ Copyright Notice: Creative Commons BY-NC-SA}
+
+\begin{document}
+
+\maketitle
+
+\section{Additional Problems}
+\begin{enumerate}
+	\item Explain precisely following abbreviations
+	
+	AS, RIP, OSPF, IGMP, EIGRP, ICMP, BGP, ARP, RARP, CIDR, DHCP, MTU
+	\paragraph{A.}
+	\begin{itemize}
+		\item AS: Within the Internet, an autonomous system (AS) is a collection of connected Internet Protocol (IP) routing prefixes under the control of one or more network operators on behalf of a single administrative entity or domain that presents a common, clearly defined routing policy to the Internet.
+		\item RIP: The Routing Information Protocol (RIP) is one of the oldest distance-vector routing protocols which employ the hop count as a routing metric. 
+		\item OSPF: Open Shortest Path First (OSPF) is a routing protocol for Internet Protocol (IP) networks. It uses a link state routing (LSR) algorithm and falls into the group of interior gateway protocols (IGPs), operating within a single autonomous system (AS). 
+		\item IGMP: The Internet Group Management Protocol (IGMP) is a communications protocol used by hosts and adjacent routers on IPv4 networks to establish multicast group memberships.
+		\item EIGRP: Enhanced Interior Gateway Routing Protocol (EIGRP) is an advanced distance-vector routing protocol that is used on a computer network for automating routing decisions and configuration.
+		\item ICMP: The Internet Control Message Protocol (ICMP) is a supporting protocol in the Internet protocol suite.
+		\item BGP: Border Gateway Protocol (BGP) is a standardized exterior gateway protocol designed to exchange routing and reachability information among autonomous systems (AS) on the Internet.
+		\item ARP: The Address Resolution Protocol (ARP) is a communications protocol used for resolution of Internet layer addresses into link layer addresses, a critical function in the Internet protocol suite.
+		\item RARP: The Reverse Address Resolution Protocol (RARP) is an obsolete computer networking protocol used by a client computer to request its Internet Protocol (IPv4) address from a computer network, when all it has available is its link layer or hardware address, such as a MAC address. 
+		\item CIDR: Classless Inter-Domain Routing (CIDR, pronunciation: /ˈsaɪdər/ or /ˈsɪdər/) is a method for allocating IP addresses and IP routing. 
+		\item DHCP: The Dynamic Host Configuration Protocol (DHCP) is a standardized network protocol used on Internet Protocol (IP) networks. 
+		\item MTU: In computer networking, the maximum transmission unit (MTU) is the size of the largest network layer protocol data unit that can be communicated in a single network transaction.
+	\end{itemize}
+	
+	\item Can ATM network provide QoS support? Why?
+	\paragraph{A.}
+	It depends on which service model ATM is based. If it is based on CBR, ABR or VBR, it can provide QoS support, however, if it is based on UBR, it can't.
+	
+	\item Which protocols does IP layer include?
+	\paragraph{A.}
+	\begin{itemize}
+		\item
+		Data transfer:\\
+		IP
+		\item
+		Control protocols:\\
+		ICMP\\
+		ARP\\
+		RARP\\
+		BOOTP\\
+		DHCP
+		\item 
+		Routing:\\
+		\textbf{IGP}\\
+		1.RIP\\
+		2.OSPF\\
+		\textbf{EGP}\\
+		BGP-4\\
+		IGMP
+	\end{itemize}
+	
+	
+	\item Which features does IPv6 packet have?
+	\paragraph{A.}
+	\begin{enumerate}
+		\item Simpler than IPv4.
+		\item Have many more available addresses.
+		\item Have more types of services.
+		\item More secure than IPv4.
+	\end{enumerate}
+\end{enumerate}
+
+\section{Problems on textbooks}
+	\begin{enumerate}
+		\item[P10.] 
+		Consider a datagram network using 32-bit host addresses. Suppose a router has four links, numbered 0 through 3, and packets are to be forwarded to the link interfaces as follows:
+		\begin{table}[H]
+			\centering
+			\begin{tabular}{|c|c|}
+				\hline
+				Destination Address Range & Link Interface \\\hline
+				11100000 00000000 00000000 00000000 & ~ \\
+				through & 0 \\
+				11100000 00111111 11111111 11111111 & ~ \\\hline
+				11100000 01000000 00000000 00000000 & ~ \\
+				through & 1 \\
+				11100000 01000000 11111111 11111111 & ~ \\\hline
+				11100000 01000001 00000000 00000000 & ~ \\
+				through & 2 \\
+				11100001 01111111 11111111 11111111 & ~ \\\hline
+				otherwise & 3 \\\hline
+			\end{tabular}
+		\end{table}
+		\begin{enumerate}
+			\item Provide a forwarding table that has five entries, uses longest prefix matching, and forwards packets to the correct link interfaces.
+			\item Describe how your forwarding table determines the appropriate link interface for datagrams with destination addresses:
+			\begin{center}
+				11001000 10010001 01010001 01010101\\
+				11100001 01000000 11000011 00111100\\
+				11100001 10000000 00010001 01110111
+			\end{center}
+		\end{enumerate}
+		\paragraph{A.}
+		\begin{enumerate}
+			\item
+			\begin{table}[H]
+				\centering
+				\begin{tabular}{|c|c|}
+					\hline
+					Prefix Match & Link Interface \\\hline
+					11100000 00 & 0 \\\hline
+					11100000 01000000  & 1 \\\hline
+					1110000 & 2 \\\hline
+					11100001 0 & 2 \\\hline
+					otherwise & 3 \\\hline
+				\end{tabular}
+			\end{table}
+			
+			\item
+			The $1^{st}$ is forwarded to interface 3; the $2^{nd}$ is forwarded to interface 2 and the $3^{rd}$ is forwarded to interface 3.
+		\end{enumerate}	
+	
+		\item[P22.] Suppose you are interested in detecting the number of hosts behind a NAT.You observe that the IP layer stamps an identification number sequentially on each IP packet. The identification number of the first IP packet generated by a host is a random number, and the identification numbers of the subsequent IP packets are sequentially assigned. Assume all IP packets generated by hosts behind the NAT are sent to the outside world.
+		\begin{enumerate}
+			\item Based on this observation, and assuming you can sniff all packets sent by the NAT to the outside, can you outline a simple technique that detects the number of unique hosts behind a NAT? Justify your answer.
+			\item If the identification numbers are not sequentially assigned but randomly assigned, would your technique work? Justify your answer.
+		\end{enumerate}
+		\paragraph{A.}
+		\begin{enumerate}
+			\item Since we can get all the packets sent by hosts behind the NAT, we can group the sequential number, and finally the number of groups is the number of hosts.
+			\item If the identification numbers are not sequentially assigned, we can't group the numbers. So it won't work.
+		\end{enumerate}
+		
+		\item[P25.] Repeat Problem P24 for paths from x to z, z to u, and z to w.
+		\begin{figure}[H]
+			\centering
+			\include[width=0.7\linewidth]{4_27}
+			\caption{}
+			\label{fig:4}
+		\end{figure}
+		\paragraph{A.}
+		\begin{itemize}
+			\item x to z:\\
+			x-y-z, x-y-w-z, x-w-z, x-w-y-z,	x-v-w-z, x-v-w-y-z, x-u-w-z, x-u-w-y-z, x-u-v-w-z, x-u-v-w-y-z
+			\item z to u:\\
+			z-w-u, z-w-v-u, z-w-x-u, z-w-v-x-u, z-w-x-v-u, z-w-y-x-u, z-w-y-x-v-u, z-y-x-u, z-y-x-v-u, z-y-x-w-u, z-y-x-w-y-u, z-y-x-v-w-u, z-y-w-v-u, z-y-w-x-u, z-y-w-v-x-u, z-y-w-x-v-u, z-y-w-y-x-u, z-y-w-y-x-v-u
+			\item z to w:\\
+			z-w, z-y-w, z-y-x-w, z-y-x-v-w, z-y-x-u-w, z-y-x-u-v-w, z-y-x-v-u-w
+		\end{itemize}
+		
+		\item[P31.] 
+		Consider the three-node topology shown in Figure 4.30. Rather than having the link costs shown in Figure 4.30, the link costs are c(x,y) = 3, c(y,z) = 6, c(z,x) = 4. Compute the distance tables after the initialization step and after each iteration of a synchronous version of the distance-vector algorithm (as	we did in our earlier discussion of Figure 4.30).
+		\begin{figure}[H]
+			\centering
+			\include[width=0.7\linewidth]{4_30}
+			\caption{}
+			\label{fig:5}
+		\end{figure}
+		\paragraph{A.}
+		\begin{table}[H]
+			\centering
+			\caption{Node x table}
+			\begin{tabular}{cccc||cccc}
+				~ & x & y & z & ~ & x & y & z \\\hline
+				x & 0 & 3 & 4 & ~ & 0 & 3 & 4 \\
+				y & $\inf$ & $\inf$ & $\inf$ & ~ & 3 & 0 & 6 \\
+				z & $\inf$ & $\inf$ & $\inf$ & ~ & 4 & 6 & 0
+			\end{tabular}
+		\end{table}
+		\begin{table}[H]
+			\centering
+			\caption{Node y table}
+			\begin{tabular}{cccc||cccc}
+				~ & x & y & z & ~ & x & y & z \\\hline
+				x & $\inf$ & $\inf$ & $\inf$ & ~ & 0 & 3 & 4 \\
+				y & 3 & 0 & 6 & ~ & 3 & 0 & 6 \\
+				z & $\inf$ & $\inf$ & $\inf$ & ~ & 4 & 6 & 0
+			\end{tabular}
+		\end{table}
+		\begin{table}[H]
+			\centering
+			\caption{Node z table}
+			\begin{tabular}{cccc||cccc}
+				~ & x & y & z & ~ & x & y & z \\\hline
+				x & $\inf$ & $\inf$ & $\inf$ & ~ & 0 & 3 & 4 \\
+				y & $\inf$ & $\inf$ & $\inf$ & ~ & 3 & 0 & 6 \\
+				z & 4 & 6 & 0 & ~ & 4 & 6 & 0
+			\end{tabular}
+		\end{table}
+		
+		\item[P35.] Describe how loops in paths can be detected in BGP.
+		\paragraph{A.}
+		If a BGP peer receives a route that contains its own AS number in the AS path, then using that route would result in a loop.
+	\end{enumerate}
+\end{document}
